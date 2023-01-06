@@ -5,7 +5,6 @@ export function validateSchema(schema) {
 
     if (error) {
       const message = error.details.map((e) => e.message);
-      console.log("Error: " + message);
       return res.status(422).send(message);
     }
 
@@ -21,7 +20,6 @@ export function validateSchema400(schema) {
 
     if (error) {
       const message = error.details.map((e) => e.message);
-      console.log("Error: " + message);
       return res.status(400).send(message);
     }
 

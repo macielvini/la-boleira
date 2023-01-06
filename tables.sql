@@ -9,7 +9,6 @@ CREATE TABLE cakes (
   id SERIAL PRIMARY KEY,
   name VARCHAR(55) NOT NULL,
   price INT NOT NULL,
-  phone VARCHAR(11) NOT NULL,
   image VARCHAR(255) NOT NULL,
   description TEXT
 );

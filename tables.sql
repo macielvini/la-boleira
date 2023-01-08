@@ -21,3 +21,13 @@ CREATE TABLE orders (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   total_price INT NOT NULL
 );
+
+CREATE TABLE flavours (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(20) NOT NULL
+);
+
+ALTER TABLE
+  cakes
+ADD
+  flavourId INT REFERENCES "flavours"("id") NOT NULL;

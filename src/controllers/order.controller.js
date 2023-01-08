@@ -41,7 +41,8 @@ export async function findAll(req, res) {
               'name', ck.name,
               'price', ck.price,
               'description', ck.description,
-              'image', ck.image
+              'image', ck.image,
+              'flavour', f.name
             ) AS cake,
             o.id AS "orderId",
             o.created_at AS "createdAt",
@@ -52,6 +53,8 @@ export async function findAll(req, res) {
           ON o.client_id = cl.id
           JOIN cakes ck
           ON o.cake_id = ck.id 
+          JOIN flavours f
+          ON ck.flavour_id = f.id
           WHERE date_trunc('day', created_at) = $1;
     `,
         [date]
@@ -71,7 +74,8 @@ export async function findAll(req, res) {
               'name', ck.name,
               'price', ck.price,
               'description', ck.description,
-              'image', ck.image
+              'image', ck.image,
+              'flavour', f.name
             ) AS cake,
             o.id AS "orderId",
             o.created_at AS "createdAt",
@@ -81,7 +85,9 @@ export async function findAll(req, res) {
           JOIN clients cl
           ON o.client_id = cl.id
           JOIN cakes ck
-          ON o.cake_id = ck.id 
+          ON o.cake_id = ck.id
+          JOIN flavours f
+          ON ck.flavour_id = f.id
         `
       );
     }
@@ -98,6 +104,8 @@ export async function findAll(req, res) {
 export async function find(req, res) {
   const { id } = req.params;
 
+  if (isNaN(id)) return res.sendStatus(400);
+
   try {
     const orders = await connection.query(
       `
@@ -113,7 +121,8 @@ export async function find(req, res) {
               'name', ck.name,
               'price', ck.price,
               'description', ck.description,
-              'image', ck.image
+              'image', ck.image,
+              'flavour', f.name
             ) AS cake,
             o.id AS "orderId",
             o.created_at AS "createdAt",
@@ -123,8 +132,10 @@ export async function find(req, res) {
           JOIN clients cl
           ON o.client_id = cl.id
           JOIN cakes ck
-          ON o.cake_id = ck.id 
-          WHERE o.id = $1
+          ON o.cake_id = ck.id
+          JOIN flavours f
+          ON ck.flavour_id = f.id
+          WHERE o.id = $1;
     `,
       [id]
     );

@@ -19,3 +19,22 @@ export async function validate(req, res, next) {
     res.sendStatus(500);
   }
 }
+
+export async function validateFlavourId(req, res, next) {
+  const { flavourId } = req.body;
+
+  try {
+    const flavour = await connection.query(
+      `
+    SELECT * FROM flavours WHERE id = $1;
+    `,
+      [flavourId]
+    );
+
+    if (!flavour.rowCount) return res.sendStatus(404);
+    next();
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
+}

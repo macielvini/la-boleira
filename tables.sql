@@ -30,4 +30,4 @@ CREATE TABLE flavours (
 ALTER TABLE
   cakes
 ADD
-  flavourId INT REFERENCES "flavours"("id") NOT NULL;
+  flavour_id INT REFERENCES "flavours"("id") NOT NULL;

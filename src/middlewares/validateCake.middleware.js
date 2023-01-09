@@ -21,6 +21,9 @@ export async function validateCake(req, res, next) {
         case "image":
           res.status(422).send(message);
           break;
+        case "flavourId":
+          res.status(400).send(message);
+          break;
       }
     }
     return;

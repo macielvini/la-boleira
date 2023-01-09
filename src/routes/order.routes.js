@@ -7,7 +7,7 @@ import { orderSchema } from "../models/order.model.js";
 const router = Router();
 
 router.post("/order", validateSchema400(orderSchema), validate, create);
-router.get("/order", findAll);
-router.get("/order/:id", find);
+router.get("/orders", findAll);
+router.get("/orders/:id", find);
 
 export default router;
